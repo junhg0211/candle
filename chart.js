@@ -40,7 +40,9 @@ function updateChart(value) {
             open: lastValue + randomDelta,
             high: Math.max(lastValue, value),
             low: Math.min(lastValue, value),
-            close: value
+            close: value,
+            sells: 0,
+            buys: 0
         };
         chartData.push(data);
         while (chartData.length > maxData) {
@@ -103,12 +105,18 @@ function renderChart() {
         let high = lerp(datum.high, min, max, chart.clientHeight, 0);
         let open = lerp(datum.open, min, max, chart.clientHeight, 0);
         let close = lerp(datum.close, min, max, chart.clientHeight, 0);
+        let transaction = datum.buys - datum.sells;
 
         ctx.fillRect(x, Math.min(open, close), candleWidth, Math.abs(open - close));
         ctx.beginPath();
         ctx.moveTo(x + candleWidth / 2, high);
         ctx.lineTo(x + candleWidth / 2, low);
         ctx.stroke();
+        if (transaction !== 0) {
+            ctx.textAlign = "center";
+            ctx.fillStyle = transaction > 0 ? "#0F80DA" : "#F35B5A";
+            ctx.fillText(Math.abs(transaction), x + candleWidth / 2, high - 5);
+        }
     }
 
     // interpolation line 0.5
@@ -178,7 +186,6 @@ function renderChart() {
         ctx.moveTo(0, y);
         ctx.lineTo(chart.clientWidth, y);
         ctx.stroke();
-        ctx.fillText(numberWithCommas(buy), chart.clientWidth - 10, y - 8);
     }
 
     // lastsell horizontal line
@@ -258,6 +265,8 @@ function buy() {
 
         for (let i = 0; i < amountNow; i++)
             buys.push(lastValue);
+
+        chartData[chartData.length - 1].buys += amountNow;
     }
     walletInput.value = wallet;
     propertyInput.value = having;
@@ -271,6 +280,8 @@ function sell() {
 
         lastSell = lastValue;
         buys.length -= amountNow;
+
+        chartData[chartData.length - 1].sells += amountNow;
     }
 
     walletInput.value = wallet;
