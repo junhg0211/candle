@@ -190,7 +190,7 @@ function renderChart() {
     ctx.lineWidth = 1;
 }
 
-updateChart(100);
+updateChart(200);
 let count = 0;
 
 function tick() {
