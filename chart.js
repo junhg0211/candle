@@ -194,7 +194,7 @@ updateChart(200);
 let count = 0;
 
 function tick() {
-    let delta = Math.random() * 2 - 1;
+    let delta = Math.random() * 2 - 0.99;
     updateChart(lastValue + delta);
     if (count++ % 10 == 0) {
         count %= 10;
