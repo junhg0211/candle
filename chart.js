@@ -18,7 +18,7 @@ let chartData = [];
 let lastValue;
 const maxData = 100;
 
-let lastBuy = undefined;
+let buys = [];
 let lastSell = undefined;
 
 let wallet = 10000;
@@ -78,9 +78,13 @@ function renderChart() {
         min = Math.min(min, datum.low);
         max = Math.max(max, datum.high);
     }
-    if (lastBuy !== undefined) {
-        min = Math.min(min, lastBuy);
-        max = Math.max(max, lastBuy);
+    for (let i = 0; i < buys.length; i++)
+    {
+        let buy = buys[i];
+        if (buy !== undefined) {
+            min = Math.min(min, buy);
+            max = Math.max(max, buy);
+        }
     }
 
     ctx.clearRect(0, 0, chart.clientWidth, chart.clientHeight);
@@ -162,14 +166,17 @@ function renderChart() {
     }
 
     // lastbuy horizontal line
-    y = lerp(lastBuy, min, max, chart.clientHeight, 0);
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = "blue";
-    ctx.beginPath();
-    ctx.moveTo(0, y);
-    ctx.lineTo(chart.clientWidth, y);
-    ctx.stroke();
-    ctx.fillText(numberWithCommas(lastBuy), chart.clientWidth - 10, y - 8);
+    for (let i = 0; i < buys.length; i++) {
+        let buy = buys[i];
+        y = lerp(buy, min, max, chart.clientHeight, 0);
+        ctx.lineWidth = 2;
+        ctx.strokeStyle = "blue";
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(chart.clientWidth, y);
+        ctx.stroke();
+        ctx.fillText(numberWithCommas(buy), chart.clientWidth - 10, y - 8);
+    }
 
     // lastsell horizontal line
     y = lerp(lastSell, min, max, chart.clientHeight, 0);
@@ -218,10 +225,12 @@ function buy() {
     if (wallet > lastValue * amountNow) {
         having += amountNow;
         wallet -= lastValue * amountNow;
+
+        for (let i = 0; i < amountNow; i++)
+            buys.push(lastValue);
     }
     walletInput.value = wallet;
     propertyInput.value = having;
-    lastBuy = lastValue;
 }
 
 function sell() {
@@ -229,14 +238,16 @@ function sell() {
     if (having >= amountNow) {
         having -= amountNow;
         wallet += lastValue * amountNow;
+
+        lastSell = lastValue;
+        buys.length -= amountNow;
     }
 
     walletInput.value = wallet;
     propertyInput.value = having;
-    lastSell = lastValue;
 
     if (having <= 0) {
-        lastBuy = undefined;
+        buys.length = 0;
         lastSell = undefined;
     }
 }
