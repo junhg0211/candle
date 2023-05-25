@@ -1,6 +1,5 @@
 const chart = document.getElementById("chart");
 const ctx = chart.getContext("2d");
-
 const price = document.getElementById("price");
 const walletInput = document.getElementById("wallet");
 const propertyInput = document.getElementById("property");
@@ -8,22 +7,17 @@ const gross = document.getElementById("gross");
 const savingInput = document.getElementById("saving");
 const amountInput = document.getElementById("buy-amount");
 const sellAmountInput = document.getElementById("sell-amount");
+const maxData = 100;
 
 chart.width = window.innerWidth;
 chart.height = window.innerHeight;
-
 let chartOpen = false;
 let chartData = [];
-
 let lastValue;
-const maxData = 100;
-
 let buys = [];
 let lastSell = undefined;
-
 let wallet = 10000;
 let having = 0;
-
 function updateChart(value) {
     if (lastValue === undefined) lastValue = value;
     if (lastValue <= 0) value = 0;
@@ -73,7 +67,7 @@ function numberWithCommas(x) {
 }
 
 let interpolationTemp;
-
+let mouseIndex = -1;
 function renderChart() {
     let candleWidth = chart.clientWidth / chartData.length * 0.8;
 
@@ -161,6 +155,14 @@ function renderChart() {
     }
     ctx.stroke();
 
+    // mouse position
+    let x = mouseIndex * chart.clientWidth / chartData.length + candleWidth / 2;
+    ctx.strokeStyle = "white";
+    ctx.beginPath();
+    ctx.moveTo(x, 0);
+    ctx.lineTo(x, chart.clientHeight);
+    ctx.stroke();
+
     // horizontal lines
     ctx.font = "17px Arial";
     ctx.textAlign = "right";
@@ -208,11 +210,12 @@ function tick() {
         splitStock();
     }
 
-    let delta = Math.random() * 1 - 0.495;
+    let delta = Math.random() * 10 - 4.95;
+    delta /= fps;
     updateChart(lastValue + delta);
 
-    if (count++ % 10 == 0) {
-        count %= 10;
+    if (count++ % fps == 0) {
+        count %= fps;
         closeChart();
     }
 }
@@ -238,21 +241,6 @@ function splitStock() {
         chartData[i].low /= splitDivisor;
     }
 }
-
-const fps = 10;
-setInterval(() => {
-    tick();
-    renderChart();
-}, 1000 / fps);
-
-for (let i = 0; i < fps * maxData; i++) {
-    tick();
-}
-
-window.addEventListener("resize", () => {
-    chart.width = window.innerWidth;
-    chart.height = window.innerHeight;
-});
 
 walletInput.value = wallet;
 propertyInput.value = having;
@@ -292,3 +280,22 @@ function sell() {
         lastSell = undefined;
     }
 }
+
+const fps = 10;
+setInterval(() => {
+    tick();
+    renderChart();
+}, 1000 / fps);
+
+for (let i = 0; i < fps * maxData; i++) {
+    tick();
+}
+
+window.addEventListener("resize", () => {
+    chart.width = window.innerWidth;
+    chart.height = window.innerHeight;
+});
+
+window.addEventListener("mousemove", e => {
+    mouseIndex = Math.floor(e.pageX / chart.clientWidth * chartData.length);
+});
