@@ -26,6 +26,8 @@ let having = 0;
 
 function updateChart(value) {
     if (lastValue === undefined) lastValue = value;
+    if (lastValue <= 0) value = 0;
+
     let data;
     if (chartOpen) {
         data = chartData[chartData.length - 1];
@@ -194,16 +196,16 @@ updateChart(200);
 let count = 0;
 
 function tick() {
+    if (lastValue >= 400) {
+        splitStock();
+    }
+
     let delta = Math.random() * 2 - 0.99;
     updateChart(lastValue + delta);
 
     if (count++ % 10 == 0) {
         count %= 10;
         closeChart();
-    }
-
-    if (lastValue > 400) {
-        splitStock();
     }
 }
 
@@ -216,10 +218,17 @@ function splitStock() {
     let newBuys = [];
     for (let i = 0; i < buys.length; i++) {
         for (let j = 0; j < splitDivisor; j++) {
-            newBuys.push(buys[i]);
+            newBuys.push(buys[i] / splitDivisor);
         }
     }
     buys = newBuys;
+
+    for (let i = 0; i < chartData.length; i++) {
+        chartData[i].open /= splitDivisor;
+        chartData[i].close /= splitDivisor;
+        chartData[i].high /= splitDivisor;
+        chartData[i].low /= splitDivisor;
+    }
 }
 
 const fps = 10;
