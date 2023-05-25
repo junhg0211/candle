@@ -82,10 +82,6 @@ function renderChart() {
         min = Math.min(min, lastBuy);
         max = Math.max(max, lastBuy);
     }
-    if (lastSell !== undefined) {
-        min = Math.min(min, lastSell);
-        max = Math.max(max, lastSell);
-    }
 
     ctx.clearRect(0, 0, chart.clientWidth, chart.clientHeight);
 
@@ -165,6 +161,7 @@ function renderChart() {
         ctx.fillText(numberWithCommas(l), chart.clientWidth - 10, y - 8);
     }
 
+    // lastbuy horizontal line
     y = lerp(lastBuy, min, max, chart.clientHeight, 0);
     ctx.lineWidth = 2;
     ctx.strokeStyle = "blue";
@@ -174,13 +171,14 @@ function renderChart() {
     ctx.stroke();
     ctx.fillText(numberWithCommas(lastBuy), chart.clientWidth - 10, y - 8);
 
+    // lastsell horizontal line
     y = lerp(lastSell, min, max, chart.clientHeight, 0);
     ctx.strokeStyle = "red";
     ctx.beginPath();
     ctx.moveTo(0, y);
     ctx.lineTo(chart.clientWidth, y);
     ctx.stroke();
-    ctx.fillText(numberWithCommas(lastBuy), chart.clientWidth - 10, y - 8);
+    ctx.fillText(numberWithCommas(lastSell), chart.clientWidth - 10, y - 8);
 
     ctx.lineWidth = 1;
 }
@@ -232,7 +230,13 @@ function sell() {
         having -= amountNow;
         wallet += lastValue * amountNow;
     }
+
     walletInput.value = wallet;
     propertyInput.value = having;
     lastSell = lastValue;
+
+    if (having <= 0) {
+        lastBuy = undefined;
+        lastSell = undefined;
+    }
 }
