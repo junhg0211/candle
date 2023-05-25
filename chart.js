@@ -6,7 +6,8 @@ const walletInput = document.getElementById("wallet");
 const propertyInput = document.getElementById("property");
 const gross = document.getElementById("gross");
 const savingInput = document.getElementById("saving");
-const amountInput = document.getElementById("amount");
+const amountInput = document.getElementById("buy-amount");
+const sellAmountInput = document.getElementById("sell-amount");
 
 chart.width = window.innerWidth;
 chart.height = window.innerHeight;
@@ -226,6 +227,7 @@ function buy() {
 }
 
 function sell() {
+    amountNow = parseInt(sellAmountInput.value);
     if (having >= amountNow) {
         having -= amountNow;
         wallet += lastValue * amountNow;
