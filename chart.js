@@ -208,7 +208,7 @@ function tick() {
         splitStock();
     }
 
-    let delta = Math.random() * 2 - 0.99;
+    let delta = Math.random() * 1 - 0.495;
     updateChart(lastValue + delta);
 
     if (count++ % 10 == 0) {
