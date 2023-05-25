@@ -1,0 +1,12 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body, body input {
+    font-family: monospace;
+}
+
+canvas {
+    background-color: #19191e;
+}
