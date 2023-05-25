@@ -196,10 +196,30 @@ let count = 0;
 function tick() {
     let delta = Math.random() * 2 - 0.99;
     updateChart(lastValue + delta);
+
     if (count++ % 10 == 0) {
         count %= 10;
         closeChart();
     }
+
+    if (lastValue > 400) {
+        splitStock();
+    }
+}
+
+let splitDivisor = 2;
+
+function splitStock() {
+    lastValue /= splitDivisor;
+    having *= splitDivisor;
+
+    let newBuys = [];
+    for (let i = 0; i < buys.length; i++) {
+        for (let j = 0; j < splitDivisor; j++) {
+            newBuys.push(buys[i]);
+        }
+    }
+    buys = newBuys;
 }
 
 const fps = 10;
