@@ -210,8 +210,9 @@ function tick() {
         splitStock();
     }
 
-    let delta = Math.random() * 10 - 4.95;
-    delta /= fps;
+    let delta = 0;
+    if (Math.random() < 4 / fps)
+        delta = Math.random() * 2 - 0.95;
     updateChart(lastValue + delta);
 
     if (count++ % fps == 0) {
@@ -281,7 +282,7 @@ function sell() {
     }
 }
 
-const fps = 10;
+const fps = 60;
 setInterval(() => {
     tick();
     renderChart();
