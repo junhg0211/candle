@@ -212,7 +212,7 @@ function tick() {
 
     let delta = 0;
     if (Math.random() < 4 / fps)
-        delta = Math.random() * 2 - 0.95;
+        delta = Math.random() * 2 - 0.99;
     updateChart(lastValue + delta);
 
     if (count++ % fps == 0) {
