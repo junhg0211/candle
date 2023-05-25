@@ -35,8 +35,9 @@ function updateChart(value) {
         data.high = Math.max(data.open, data.close, data.high);
         data.low = Math.min(data.open, data.close, data.low);
     } else {
+        let randomDelta = value > 0 ? Math.random() * 0.5 - 0.25 : 0;
         data = {
-            open: lastValue + Math.random() * 0.5 - 0.25,
+            open: lastValue + randomDelta,
             high: Math.max(lastValue, value),
             low: Math.min(lastValue, value),
             close: value
