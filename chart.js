@@ -59,6 +59,8 @@ function lerp(t, x1, x2, y1, y2) {
 }
 
 function numberWithCommas(x) {
+    if (x === undefined) return "0";
+
     var parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     return parts.join(".");
@@ -83,7 +85,6 @@ function renderChart() {
         min = Math.min(min, lastSell);
         max = Math.max(max, lastSell);
     }
-    console.log(min, max);
 
     ctx.clearRect(0, 0, chart.clientWidth, chart.clientHeight);
 
