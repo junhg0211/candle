@@ -218,9 +218,9 @@ function buy() {
 }
 
 function sell() {
-    if (having > 0) {
-        having--;
-        wallet += lastValue;
+    if (having >= amountNow) {
+        having -= amountNow;
+        wallet += lastValue * amountNow;
     }
     walletInput.value = wallet;
     propertyInput.value = having;
