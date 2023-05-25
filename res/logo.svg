@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="a" data-name="레이어 1" xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <g>
+    <g>
+      <rect x="57.228" y="22.83" width="13.543" height="83.469" fill="#f35b5a"/>
+      <line x1="64" y1="120.886" x2="64" y2="21.85" fill="none" stroke="#f35b5a" stroke-miterlimit="10" stroke-width="4"/>
+    </g>
+    <g>
+      <rect x="74.177" y="17.148" width="13.543" height="27.627" fill="#0f80da"/>
+      <line x1="80.948" y1="88.979" x2="80.948" y2="12.662" fill="none" stroke="#0f80da" stroke-linejoin="round" stroke-width="4"/>
+    </g>
+    <g>
+      <rect x="40.28" y="74.165" width="13.543" height="27.627" fill="#0f80da"/>
+      <line x1="47.052" y1="97.061" x2="47.052" y2="7.114" fill="none" stroke="#0f80da" stroke-linejoin="round" stroke-width="4"/>
+    </g>
+  </g>
+  <g>
+    <polyline points="13.155 34.807 64 107.929 80.948 62.777 114.845 77.521" fill="none" stroke="#d89112" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+    <polyline points="13.155 79.712 47.052 93.311 80.948 74.273 114.845 81.412" fill="none" stroke="#45a50e" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+    <polyline points="13.155 47.278 47.052 52.96 80.948 50.119 114.845 61.092" fill="none" stroke="#c6c6c6" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+  </g>
+</svg>
