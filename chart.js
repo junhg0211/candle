@@ -75,6 +75,15 @@ function renderChart() {
         min = Math.min(min, datum.low);
         max = Math.max(max, datum.high);
     }
+    if (lastBuy !== undefined) {
+        min = Math.min(min, lastBuy);
+        max = Math.max(max, lastBuy);
+    }
+    if (lastSell !== undefined) {
+        min = Math.min(min, lastSell);
+        max = Math.max(max, lastSell);
+    }
+    console.log(min, max);
 
     ctx.clearRect(0, 0, chart.clientWidth, chart.clientHeight);
 
@@ -125,7 +134,6 @@ function renderChart() {
     }
     ctx.stroke();
 
-    /*
     // interpolation line 0.05
     interpolationTemp = chartData[0].close;
     ctx.strokeStyle = "darkgrey";
@@ -139,7 +147,6 @@ function renderChart() {
         );
     }
     ctx.stroke();
-    */
 
     // horizontal lines
     ctx.font = "17px Arial";
