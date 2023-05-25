@@ -5,8 +5,27 @@
 
 body, body input {
     font-family: monospace;
+    overflow-y: hidden;
 }
 
 canvas {
     background-color: #19191e;
+}
+
+.main-container p {
+    margin: 1rem;
+}
+
+.buttons {
+    margin: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.buttons button {
+    flex-grow: 1;
+}
+
+input, button {
+    padding: 1rem;
 }

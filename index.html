@@ -11,13 +11,27 @@
   <canvas id="chart"></canvas>
   <div>
     <p id="price"></p>
-    <input type="number" id="amount" value="1">
-    <button onclick="buy()">매수</button>
-    <button onclick="sell()">매도</button>
-    <input type="number" id="wallet">
-    <input type="number" id="property">
+    <p>
+      구매 단위
+      <input type="number" id="amount" value="1">
+    </p>
+    <div class="buttons">
+      <button onclick="buy()">매수</button>
+      <button onclick="sell()">매도</button>
+    </div>
+    <p>
+      소지금
+      <input type="number" id="wallet" disabled>
+    </p>
+    <p>
+      소지 자산
+      <input type="number" id="property" disabled>
+    </p>
     <p id="gross"></p>
-    <input type="nubmer" id="saving" value="0">
+    <p>
+      저장금
+      <input type="number" id="saving" value="0">
+    </p>
   </div>
 </div>
 
