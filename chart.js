@@ -221,9 +221,7 @@ function tick() {
     }
 }
 
-let splitDivisor = 2;
-
-function splitStock() {
+function splitStock(splitDivisor) {
     lastValue /= splitDivisor;
     having *= splitDivisor;
 
@@ -240,6 +238,8 @@ function splitStock() {
         chartData[i].close /= splitDivisor;
         chartData[i].high /= splitDivisor;
         chartData[i].low /= splitDivisor;
+        chartData[i].sells *= splitDivisor;
+        chartData[i].buys *= splitDivisor;
     }
 }
 
